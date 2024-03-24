@@ -1,0 +1,78 @@
+openapi: '3.0.2'
+info:
+  title: API
+  version: '1.0'
+servers:
+  - url: /
+paths:
+
+  /vm/:
+    post:
+      tags:
+        - VM
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post_vm'
+            example:
+              {
+                "id": 29292931929,
+                "size": 2,
+                "task": "echo 5"
+              }
+      responses:
+        '201':
+            description: OK
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/post_vm_result'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                type: string
+        '409':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/post_vm_result'
+
+components:
+  schemas:
+
+    post_vm:
+      type: object
+      required:
+        - id
+        - size
+        - task
+      properties:
+        id:
+          type: number
+          nullable: false
+        size:
+          type: number
+          nullable: false
+        task:
+          type: string
+          nullable: false
+
+    post_vm_result:
+      type: object
+      required:
+        - result
+      properties:
+        result:
+          type: string
+          nullable: false
+          enum: ["OK", "NOT_OK"]
+        host_id:
+          type: number
+          nullable: false
+
+
