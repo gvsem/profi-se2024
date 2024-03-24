@@ -11,10 +11,22 @@ plugins {
 group 'org.example'
 version '1.0-SNAPSHOT'
 
+springBoot {
+    mainClass = 'org.example.profise.Application'
+}
+
 java {
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(17))
     }
+}
+
+bootJar {
+    enabled = false
+}
+
+jar {
+    enabled = true
 }
 
 repositories {
